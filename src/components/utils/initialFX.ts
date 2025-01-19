@@ -6,10 +6,14 @@ export function initialFX() {
   document.body.style.overflowY = "auto";
   smoother.paused(false);
   document.getElementsByTagName("main")[0].classList.add("main-active");
+
+  // Set initial background color immediately and then transition
+  document.body.style.backgroundColor = "#0b080c";
   gsap.to("body", {
     backgroundColor: "#0b080c",
     duration: 0.5,
     delay: 1,
+    overwrite: true
   });
 
   var landingText = new SplitText(

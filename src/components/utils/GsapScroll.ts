@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import gsap from "gsap";
+import gsap from "gsap-trial";
 
 // Add proper types to fix 'any' errors
 interface ScreenMaterial extends THREE.Material {
@@ -27,8 +27,16 @@ export function setCharTimeline(
       trigger: ".landing-section",
       start: "top top",
       end: "bottom top",
-      scrub: true,
+      scrub: 1,
+      preventOverlaps: true,
+      fastScrollEnd: true,
       invalidateOnRefresh: true,
+      onEnter: () => {
+        gsap.to("body", { backgroundColor: "#0b080c", duration: 0.5 });
+      },
+      onLeaveBack: () => {
+        gsap.to("body", { backgroundColor: "#0b080c", duration: 0.5 });
+      }
     },
   });
   const tl2 = gsap.timeline({
@@ -36,8 +44,16 @@ export function setCharTimeline(
       trigger: ".about-section",
       start: "center 55%",
       end: "bottom top",
-      scrub: true,
+      scrub: 1,
+      preventOverlaps: true,
+      fastScrollEnd: true,
       invalidateOnRefresh: true,
+      onEnter: () => {
+        gsap.to("body", { backgroundColor: "#0b080c", duration: 0.5 });
+      },
+      onLeaveBack: () => {
+        gsap.to("body", { backgroundColor: "#0b080c", duration: 0.5 });
+      }
     },
   });
   const tl3 = gsap.timeline({
@@ -95,14 +111,14 @@ export function setCharTimeline(
         .to(".about-section", { opacity: 0, delay: 3, duration: 2 }, 0)
         .fromTo(
           ".character-model",
-          { pointerEvents: "inherit" },
-          { pointerEvents: "none", x: "-12%", delay: 2, duration: 5 },
+          { pointerEvents: "inherit", autoAlpha: 1 },
+          { pointerEvents: "none", x: "-12%", delay: 2, duration: 5, autoAlpha: 1 },
           0
         )
         .to(character.rotation, { y: 0.92, x: 0.12, delay: 3, duration: 3 }, 0)
         .to(neckBone!.rotation, { x: 0.6, delay: 2, duration: 3 }, 0)
-        .to(monitor?.material, { opacity: 1, duration: 0.8, delay: 3.2 }, 0)
-        .to(screenLight?.material, { opacity: 1, duration: 0.8, delay: 4.5 }, 0)
+        .to(monitor?.material || {}, { opacity: 1, duration: 0.8, delay: 3.2 }, 0)
+        .to(screenLight?.material || {}, { opacity: 1, duration: 0.8, delay: 4.5 }, 0)
         .fromTo(
           ".what-box-in",
           { display: "none" },
@@ -110,7 +126,7 @@ export function setCharTimeline(
           0
         )
         .fromTo(
-          monitor?.position,
+          monitor?.position || {},
           { y: -10, z: 2 },
           { y: 0, z: 0, delay: 1.5, duration: 3 },
           0
