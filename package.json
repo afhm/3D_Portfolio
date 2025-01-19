@@ -18,7 +18,6 @@
     "@react-three/rapier": "^1.5.0",
     "@types/three": "^0.168.0",
     "@vercel/analytics": "^1.4.1",
-    "gsap": "^3.12.7",
     "gsap-trial": "file:gsap-trial",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
